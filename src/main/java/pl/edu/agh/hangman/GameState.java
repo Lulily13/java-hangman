@@ -41,5 +41,3 @@ public class GameState {
         return word;
     }
 }
-
-}

@@ -54,4 +54,18 @@ public class HangmanDisplay {
                     "      |\n" +
                     "========"
     };
+
+    public void show(GameState gameState) {
+        System.out.println(HANGMANPICS[6 - gameState.getAttemptsLeft()]);
+        System.out.println("Słowo: " + gameState.getMaskedWord());
+    }
+
+    public void showFinalResult(GameState gameState) {
+        if (gameState.getMaskedWord().equals(gameState.getWord())) {
+            System.out.println("Gratulacje! Odgadłeś słowo: " + gameState.getWord());
+        } else {
+            System.out.println("Przegrałeś! Prawidłowe słowo to: " + gameState.getWord());
+        }
+    }
+
 }
