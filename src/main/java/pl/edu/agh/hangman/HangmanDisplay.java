@@ -62,10 +62,11 @@ public class HangmanDisplay {
 
     public void showFinalResult(GameState gameState) {
         if (gameState.getMaskedWord().equals(gameState.getWord())) {
-            System.out.println("Gratulacje! Odgadłeś słowo: " + gameState.getWord());
+            System.out.println("Odgadłeś słowo: " + gameState.getWord());
         } else {
-            System.out.println("Przegrałeś! Prawidłowe słowo to: " + gameState.getWord());
+            System.out.println("Prawidłowe słowo to: " + gameState.getWord());
         }
     }
+
 
 }

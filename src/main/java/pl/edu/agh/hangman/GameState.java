@@ -14,8 +14,13 @@ public class GameState {
     }
 
     public boolean isGameOver() {
-        return attemptsLeft == 0 || getMaskedWord().equals(word);
+        boolean gameOver = attemptsLeft == 0 || getMaskedWord().indexOf("_") == -1;
+        if (gameOver) {
+            System.out.println("Gra zakończona: " + (attemptsLeft == 0 ? "przegrałeś" : "wygrałeś"));
+        }
+        return gameOver;
     }
+
 
     public void processGuess(char guess) {
         if (!word.contains(String.valueOf(guess))) {
