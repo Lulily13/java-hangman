@@ -1,43 +1,31 @@
 package pl.edu.agh.hangman;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-//Odpowiada za losowanie słów z pliku „słowa.txt”.
-public class RandomWord {
+class RandomWord {
+    private final List<String> words = new ArrayList<>();
 
-    //lista bedzie przechowywac wszystkie słowa wczytane z pliku
-private final List<String> words = new ArrayList<>();
-
-
-//tworze konstruktor
-public RandomWord(String filename) {
-
-
-    //wczytuje slowa podane od usera plus dodaje wyjatek
-    //otwieram plik o nazwie filename (slowa.txt)
-    try (Scanner scanner = new Scanner(new File(filename))) {
-        while (scanner.hasNextLine()) {
-            words.add(scanner.nextLine().toUpperCase());
+    public RandomWord(String filename) {
+        ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+        InputStream is = classloader.getResourceAsStream(filename);
+        if (is == null) {
+            System.err.println("Błąd: Plik " + filename + " nie został znaleziony.");
+            return;
         }
-    } catch (IOException e) {
-        System.err.println("Błąd wczytywania słów: " + e.getMessage());
+        try (Scanner scanner = new Scanner(is)) {
+            while (scanner.hasNextLine()) {
+                words.add(scanner.nextLine().toUpperCase());
+            }
+        } catch (Exception e) {
+            System.err.println("Błąd wczytywania słów: " + e.getMessage());
+        }
     }
 
-}
-
-
-    //wybieram jedno losowe slowo z listy
-    // Jeśli lista jest pusta (np. z powodu błędu odczytu pliku), zwracam  słowo "DEFAULT"
     public String getRandomWord() {
         return words.isEmpty() ? "DEFAULT" : words.get(new Random().nextInt(words.size()));
     }
-
-
-
-
 }
